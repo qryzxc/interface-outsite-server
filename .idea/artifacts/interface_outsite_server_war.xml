@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="interface-outsite-server:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="adapter.war">
+      <element id="artifact" artifact-name="interface-outsite-server:war exploded" />
+    </root>
+  </artifact>
+</component>

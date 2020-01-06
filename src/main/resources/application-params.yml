@@ -1,0 +1,12 @@
+params:
+  paramsMapping:
+    base-interface: http://192.168.11.5:8089
+    cd-interface: http://localhost:8082
+    resources-interface: http://192.168.11.5:8089
+    wisdom-interface: http://192.168.11.5:8089
+  #附件存放临时目录
+  uploadPath: E://xiaowei//temp
+  imageFormat:
+    BMP,JPG,PNG,TIF,GIF,PCX,TGA,EXIF,FPX,SVG,PSD,CDR,PCD,DXF,UFO,EPS,AI,RAW,WMF,WEBP
+  #附件服务器
+  imagePath: http://localhost:8080

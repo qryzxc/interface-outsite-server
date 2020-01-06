@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration>
+    <springProperty scope="context" name="logging.path" source="logging.path"/>
+    <jmxConfigurator/>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </layout>
+    </appender>
+
+    <!-- This is MDC value -->
+    <!-- We will assign a value to 'logFileName' via Java code -->
+    <appender name="FILE-THREAD" class="ch.qos.logback.classic.sift.SiftingAppender">
+        <discriminator>
+            <key>THREAD_ID</key>
+            <defaultValue>default</defaultValue>
+        </discriminator>
+        <sift>
+            <!-- A standard RollingFileAppender, the log file is based on 'logFileName' at runtime  -->
+            <appender name="FILE-${THREAD_ID}" class="ch.qos.logback.core.rolling.RollingFileAppender">
+                <file>${logging.path}/interface-ousite-server-${THREAD_ID}.log</file>
+                <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+                    <Pattern>
+                        %d{yyyy-MM-dd HH:mm:ss.SSS} %mdc [%thread] %-5level %logger{36} - %msg%n
+                    </Pattern>
+                </encoder>
+                <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+                    <!--日志文件输出的文件名-->
+                    <FileNamePattern>${logging.path}/%d{yyyy-MM-dd}/interface-ousite-server-${THREAD_ID}.%i.log</FileNamePattern>
+                    <!-- 日志文件最大尺寸 -->
+                    <maxFileSize>100MB</maxFileSize>
+                    <!--日志文件保留天数-->
+                    <MaxHistory>30</MaxHistory>
+                </rollingPolicy>
+            </appender>
+        </sift>
+    </appender>
+
+    <logger name="com.finest.app" level="INFO" additivity="false">
+        <appender-ref ref="FILE-THREAD"/>
+    </logger>
+
+    <root level="INFO">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="FILE-THREAD"/>
+    </root>
+</configuration>

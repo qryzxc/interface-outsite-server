@@ -1,0 +1,11 @@
+server:
+  port: 9092
+  servlet:
+    context-path: /adapter
+spring:
+  profiles:
+    active: params
+logging:
+  level:
+    root: info
+  path: E://xiaowei//logs//interface-ousite-server//monitor
